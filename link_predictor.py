@@ -1,7 +1,14 @@
 
 '''
 
-@todo upddate this string
+This module contains our link predictor class. It embeds a graph using noed2vec and then predicts links between two nodes by passing the Hadamard product of their frozen node2vec embeddings through a logistic regression classifier.
+
+Sections:
+* Imports
+* Globals
+* Visualization
+* Data Module
+* Link Predictor Model
 
 '''
 
@@ -25,12 +32,10 @@ import torch
 from torch import nn
 from torch.utils import data
 from collections import OrderedDict
-from typing import Tuple, Dict, List, Set
+from typing import Dict, List
 from typing_extensions import Literal
 
 from misc_utilities import *
-
-# @todo check the imports
 
 ###########
 # Globals #

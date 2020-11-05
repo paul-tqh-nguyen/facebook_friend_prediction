@@ -1,7 +1,15 @@
 
 '''
 
-@todo update this string
+This file contains the main driver for training our link prediction model and for our hyperparameter search execution and analysis.
+
+Imports
+* Globals
+* Data Processing
+* Link Predictor Hyperparameter Search
+* Hyperparameter Search Result Analysis
+* Default Model
+* Driver
 
 '''
 
@@ -10,7 +18,6 @@
 ###########
 
 import argparse
-import functools
 import os
 import json
 import pickle
@@ -23,12 +30,10 @@ import numpy as np
 import pandas as pd
 import multiprocessing as mp
 import networkx as nx
-from typing import Dict, Tuple, Set
+from typing import Tuple
 
 from misc_utilities import *
 from link_predictor import LinkPredictor, RESULT_SUMMARY_JSON_FILE_BASENAME
-
-# @todo make sure these imports are used
 
 ###########
 # Globals #
