@@ -1,6 +1,6 @@
 # Facebook Friend Prediction
 
-This repository contains a machine learning model for predicting who would be friends in a social network. We use the empirically validate our findings via the [Facebook dataset](http://snap.stanford.edu/data/egonets-Facebook.html) from [SNAP](http://snap.stanford.edu/index.html).
+This repository contains a machine learning model for predicting who would be friends in a social network. We empirically validate our findings via the [Facebook dataset](http://snap.stanford.edu/data/egonets-Facebook.html) from [SNAP](http://snap.stanford.edu/index.html).
 
 A summary of our findings can be found at https://paul-tqh-nguyen.github.io/facebook_friend_prediction/.
 
