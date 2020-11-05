@@ -16,25 +16,51 @@
     <section id="introduction">
       <div class="horizontal-padding vertical-padding">
 	<h3>Intro</h3>
-	<p>TODO fill this in.</p>
+	<p>In this post, we'll go over how we used <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec</a> to predict which users would be friends in a social network.</p>
+	<p>We used <a target="_blank" href="http://snap.stanford.edu/data/egonets-Facebook.html">Facebook dataset</a> from <a target="_blank" href="http://snap.stanford.edu/index.html">SNAP</a>.</p>
+	<p>The source code for our findings can be found <a target="_blank" href="https://github.com/paul-tqh-nguyen/facebook_friend_prediction">here</a>.</p>
       </div>
     </section>
     <section id="experiment-overview" class="stone-background">
       <div class="horizontal-padding vertical-padding">
 	<h3>Experiment Overview</h3>
-	<p>TODO fill this in.</p>
+	<p>The <a target="_blank" href="http://snap.stanford.edu/data/egonets-Facebook.html">Facebook dataset</a> from <a target="_blank" href="http://snap.stanford.edu/index.html">SNAP</a> provides an anonymized subgraph of <a target="_blank" href="https://en.wikipedia.org/wiki/Facebook">Facebook</a>'s social network.</p>
+	<p>The subgraph has 4,039 users and 88,234 friendships between the users.</p>
+	<p>Our architecture is depicted below:</p>
+	<p>We use <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec</a> to generate vector representations of the users.</p>
+	<p>To predict whether or not two users are friends, we take the <a target="_blank" href="https://en.wikipedia.org/wiki/Hadamard_product_(matrices)">Hadamard product</a> of their <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec</a> representations and put it through a <a target="_blank" href="https://en.wikipedia.org/wiki/Logistic_regression">logistic regression classifier</a>.</p>
+	<p>The training process has 2 distinct parts, embedding the users via <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec</a> and training our logistic regression classifier.</p>
+	<p>To generate our training data for both parts of training, we use a process similar to what's described in the <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec paper</a>. We first take the entire graph from the dataset and sample several pairs of users who are not friends. These will be our negative edges. The number of negative edges we sample is equal to half the number of edges in the original graph. We then remove half of the edges from the original graph (while ensuring that the graph remains connected). These edges will be our positive edges. Our graph now has half as many edges as it origginally did.</p>
+	<p>Training the <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec</a> embeddings on the users is an unsupervised process that is done first. We executed this process on the remaining graph. The sampled negative and positive edges do not come into play here. We used standard <a target="_blank" href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent">stochastic gradient descent</a> with <a target="_blank" href="https://people.eecs.berkeley.edu/~brecht/papers/hogwildTR.pdf">Hogwild!</a>.</p>
+	<p>We then train our logistic regression classifier. We use the negative and positive edges here. The 30% of our data for training, 10% for validation, and 60% for testing. We used <a target="_blank" href="https://en.wikipedia.org/wiki/Early_stopping">early stopping</a>. The <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec</a> embeddings are frozen while we train the logistic regression classifier. We used the <a target="_blank" href="https://arxiv.org/abs/1412.6980">Adam optimizer</a>.</p>
+	<p>For hyperparameter tuning, each trial contains selections for hyperparameters for both the <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec</a> embedding process and the logistic regression classifier training process. We use a <a target="_blank" href="https://papers.nips.cc/paper/4443-algorithms-for-hyper-parameter-optimization.pdf">tree-structured Parzen estimator</a> with <a target="_blank" href="https://arxiv.org/abs/1502.07943">successive halving</a>.</p>
+	<p>The following hyperparameters were set during each trial of our hyperparameter search:</p>
+	<ul>
+	  <li>node2vec Embedding Size</li>
+	  <li>node2vec Random Walk Parameter <i>p</i> (see the <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec paper</a>)</li>
+	  <li>node2vec Random Walk Parameter <i>q</i> (see the <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec paper</a>)</li>
+	  <li>Number of node2vec Random Walks Per Node</li>
+	  <li>Number of node2vec Epochs</li>
+	  <li>node2vec Learning Rate</li>
+	  <li>Logistic Regression Initial Learning Rate</li>
+	  <li>Logistic Regression Batch Size</li>
+	  <li>Logistic Regression Training Max Gradient Clipping Threshold</li>
+	</ul>
       </div>
     </section>
     <section id="experiment-results">
       <div class="horizontal-padding vertical-padding">
 	<h3>Experiment Results</h3>
 	<p>TODO fill this in.</p>
+	<p></p>
+	<p></p>
       </div>
     </section>
     <section id="conclusion" class="stone-background">
       <div class="horizontal-padding vertical-padding">
 	<h3>Conclusion</h3>
-	<p>TODO fill this in.</p>
+	<p>It seems that the method we explored here is rather effective given the small portion of our data used for training and accuracy of our predictions.</p>
+	<p>Hopefully, this was a useful read. Please feel free to give any <a target="_blank" href="https://paul-tqh-nguyen.github.io/about/#contact">feedback</a>!.</p>
       </div>
       <table style="table-layout: fixed; width: 100%; padding-top: 40px; padding-bottom: 40px;">
 	<tr>

@@ -151,7 +151,13 @@ p {
     margin-block-end: 0em;
 }
 
+ul {
+    margin: 0px;
+}
+
 ul li {
+    font-family: 'Libre Baskerville', sans-serif;
+    font-size: 0.9em;
     margin-left: 10vw;
 }
 
