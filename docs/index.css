@@ -244,27 +244,29 @@ card a {
     transition: all 0.5s linear;
 }
 
-/**************/
-/* Bar Charts */
-/**************/
+/*****************/
+/* Result Tables */
+/*****************/
 
-.container-center {
-    position: relative;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
-    font-family: sans-serif;
-    margin-top: 30px;
-    margin-bottom: 30px;
+#hyperparameter-results {
+    text-align: -webkit-center;
+    padding-bottom: 2em;
 }
 
-.testing-accuracy-bar-chart-container {
-    width: 60vw;
-    height: 80vh;
+.result-table-container {
+    font-family: 'Oxygen';
 }
 
-.best-results-bar-chart-container {
-    width: 80vw;
-    height: 80vh;
+.result-table-container p {
+    font-family: inherit;
+    padding: 1px 5px 1px 5px;
+}
+
+.result-table {
+    width: 45em;
+    border-collapse: collapse
+}
+
+.result-table tr {
+    border: 0.25px solid rgba(0,0,0,0.05);
 }

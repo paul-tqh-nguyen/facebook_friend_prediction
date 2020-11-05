@@ -26,7 +26,6 @@
 	<h3>Experiment Overview</h3>
 	<p>The <a target="_blank" href="http://snap.stanford.edu/data/egonets-Facebook.html">Facebook dataset</a> from <a target="_blank" href="http://snap.stanford.edu/index.html">SNAP</a> provides an anonymized subgraph of <a target="_blank" href="https://en.wikipedia.org/wiki/Facebook">Facebook</a>'s social network.</p>
 	<p>The subgraph has 4,039 users and 88,234 friendships between the users.</p>
-	<p>Our architecture is depicted below:</p>
 	<p>We use <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec</a> to generate vector representations of the users.</p>
 	<p>To predict whether or not two users are friends, we take the <a target="_blank" href="https://en.wikipedia.org/wiki/Hadamard_product_(matrices)">Hadamard product</a> of their <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec</a> representations and put it through a <a target="_blank" href="https://en.wikipedia.org/wiki/Logistic_regression">logistic regression classifier</a>.</p>
 	<p>The training process has 2 distinct parts, embedding the users via <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec</a> and training our logistic regression classifier.</p>
@@ -39,8 +38,9 @@
 	  <li>node2vec Embedding Size</li>
 	  <li>node2vec Random Walk Parameter <i>p</i> (see the <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec paper</a>)</li>
 	  <li>node2vec Random Walk Parameter <i>q</i> (see the <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec paper</a>)</li>
-	  <li>Number of node2vec Random Walks Per Node</li>
-	  <li>Number of node2vec Epochs</li>
+	  <li>node2vec Random Walk Length</li>
+	  <li>node2vec Number of Random Walks Per Node</li>
+	  <li>node2vec Number of Epochs</li>
 	  <li>node2vec Learning Rate</li>
 	  <li>Logistic Regression Initial Learning Rate</li>
 	  <li>Logistic Regression Batch Size</li>
@@ -51,16 +51,19 @@
     <section id="experiment-results">
       <div class="horizontal-padding vertical-padding">
 	<h3>Experiment Results</h3>
-	<p>TODO fill this in.</p>
-	<p></p>
-	<p></p>
+	<p>We ran <span id="number-of-hyperparameter-trials-span">several</span> trials of hyperparameter search.</p>
+	<p>Here are the <span id="number-of-best-trials-span"></span> best results from our hyperparameter search ranked by validation loss.</p>
+	<div id="hyperparameter-results"><p>Loading results...</p></div>
+	<p>Note that the total training time for each trial is measured while other trials were run simultaneously and asynchronously and may not reflect how long the trial would take to run in isolation.</p>
+	<p>We were able to achieve testing accuracies of over 92% using only 40% of the sampled edges during training. Preliminary experiments have shown that we can achieve higher testing accuracies if we use a larger training or validation set.</p>
       </div>
     </section>
     <section id="conclusion" class="stone-background">
       <div class="horizontal-padding vertical-padding">
 	<h3>Conclusion</h3>
 	<p>It seems that the method we explored here is rather effective given the small portion of our data used for training and accuracy of our predictions.</p>
-	<p>Hopefully, this was a useful read. Please feel free to give any <a target="_blank" href="https://paul-tqh-nguyen.github.io/about/#contact">feedback</a>!.</p>
+	<p>An intuitive explanation regarding why this method works so well is that a friend of a friend is likely a friend. In other words, social circles often overlap. Thus, random walks across a social network like those done by <a target="_blank" href="https://arxiv.org/abs/1607.00653">node2vec</a> will likely stumble upon a friend.</p>
+	<p>Hopefully, this was a useful read. Please feel free to <a target="_blank" href="https://paul-tqh-nguyen.github.io/about/#contact">reacch out</a> if you have any questions or suggestions.</p>
       </div>
       <table style="table-layout: fixed; width: 100%; padding-top: 40px; padding-bottom: 40px;">
 	<tr>
