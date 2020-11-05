@@ -209,13 +209,14 @@ def analyze_hyperparameter_search_results() -> None:
     params_prefix = 'params_'
     assert set(LinkPredictor.hyperparameter_names) == {column_name[len(params_prefix):] for column_name in df.columns if column_name.startswith(params_prefix)}
     result_summary_dicts = []
-    for row in df.itertuples():
+    for row_index, row in df.iterrows():
         hyperparameter_dict = {hyperparameter_name: getattr(row, params_prefix+hyperparameter_name) for hyperparameter_name in LinkPredictor.hyperparameter_names}
         checkpoint_dir = LinkPredictor.checkpoint_directory_from_hyperparameters(**hyperparameter_dict)
         result_summary_file_location = os.path.join(checkpoint_dir, RESULT_SUMMARY_JSON_FILE_BASENAME)
         with open(result_summary_file_location, 'r') as f:
             result_summary_dict = json.load(f)
             result_summary_dict['duration_seconds'] = row.duration.seconds
+            result_summary_dict['trial_index'] = row_index
         result_summary_dicts.append(result_summary_dict)
     with open(HYPERPARAMETER_ANALYSIS_JSON_FILE_LOCATION, 'w') as f:
         json.dump(result_summary_dicts, f, indent=4)
